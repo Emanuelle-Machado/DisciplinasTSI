@@ -1,1 +1,1 @@
-Local para envio de atividades da disciplina de Análise e Projeto de Sistemas 2.
+Local para envio de atividades das disciplinas.
