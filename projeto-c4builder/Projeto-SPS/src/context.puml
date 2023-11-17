@@ -1,15 +1,18 @@
 @startuml
+
 !include https://raw.githubusercontent.com/adrianvlupu/C4-PlantUML/latest/C4_Context.puml
 
 LAYOUT_WITH_LEGEND()
 
-Person(pbc, "Personal Banking Customer", "A customer of the bank, with personal bank accounts.")
-System(ibs, "Internet Banking System", "Allows customers to view information about their bank accounts, and make payments.")
-System_Ext(es, "E-mail system", "The internal Microsoft Exchange e-mail system.")
-System_Ext(mbs, "Mainframe Banking System", "Stores all of the core banking information about customers, accounts, transactions, etc.")
+Person(pcs, "Pessoa Cliente do sistema", "Um cliente com uma conta no sistema")
+Person(pas, "Pessoa Atendente do sistema", "Um atendente com uma conta no sistema")
 
-Rel(pbc, ibs, "Uses")
-Rel(es, pbc, "Sends e-mails to")
-Rel(ibs, es, "Sends e-mails", "SMTP")
-Rel(ibs, mbs, "Uses")
+System(sps, "Sistema prestação de serviço", "Permite aos usuários pedir um transporte com um prestador disponível")
+
+System_Ext(email, "Sistema de E-mail", "sistema de envio e recebimento de e-mails")
+
+Rel(pcs, sps, "usa")
+Rel(pas, sps, "usa")
+Rel(pas, email, "Envia e-mail", "o atendente pode enviar ou receber emails dos clientes")
+
 @enduml
