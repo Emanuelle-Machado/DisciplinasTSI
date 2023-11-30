@@ -3,19 +3,29 @@
 
 LAYOUT_WITH_LEGEND()
 
-Container(api, "API Application", "java and Spring MVC", "Delivers the static content and the internet banking single page application.")
+Container(client, "Aplicação Cliente", "Oferece a interface para os clientes solicitarem serviços.")
 
-Container_Boundary(spa, "Single Page Application") {
-    Component(routing, "Routing", "React router", "Handler slient side routing")
-    Component(store, "Data Store", "Redux", "The central object holding the application state")
-    Component(login, "Login form", "React Class", "The login page")
-    Component(profile, "Profile Page", "React Class", "The page where the logged in user can view and edit his/her information")
+Container(driver, "Aplicação Prestador", "Oferece a interface para os prestadores aceitarem solicitações de serviços.")
+
+Container(api, "Administrador", "Lida com o gerenciamento de dados e o processamento em tempo real.")
+
+Container_Boundary(database, "Banco de Dados") {
+    Component(trips, "Tabela do Banco de Dados", "Armazena informações sobre todos os serviços prestados.")
+    Component(drivers, "Tabela de Prestadores", "Tabela do Banco de Dados", "Armazena informações sobre todos os prestadores registrados.")
+    Component(clients, "Tabela de Clientes", "Tabela do Banco de Dados", "Armazena informações sobre todos os clientes registrados.")
 }
 
-Rel(spa, api, "Uses", "JSON/HTTPS")
+Rel(client, api, "Usa", "JSON/HTTPS")
+Rel(driver, api, "Usa", "JSON/HTTPS")
 
-Rel(login, store, "Uses");
-Rel(routing, store, "Uses");
-Rel(profile, store, "Uses");
+Rel(api, database, "Usa", "Conector de Banco de Dados")
+
+Rel(trips, store, "Envia");
+Rel(drivers, store, "Envia");
+Rel(clients, store, "Envia");
+
+Rel(routing, trips, "Lê");
+Rel(login, clients, "Lê");
+Rel(profile, clients, "Lê");
 
 @enduml
