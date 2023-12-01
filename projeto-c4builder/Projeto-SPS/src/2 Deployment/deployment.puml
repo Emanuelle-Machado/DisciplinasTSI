@@ -30,25 +30,20 @@ Deployment_Node(mob, "dispositivo mobile do cliente", "Apple IOS ou Android"){
     Container(appMobile, "Aplicativo Móvel", "JSON/HTTPS", "Fornece serviços aos clientes por meio de seus dispositivos móveis.")
 }
 
-Deployment_Node(comp, "computer do cliente", "Mircosoft Windows"){
+Deployment_Node(comp, "computador do cliente", "Mircosoft Windows"){
     Deployment_Node(browser, "Navegador Web", "Google Chrome, Mozilla Firefox"){
-        Container(servicoAPI, "Serviço de API", "JavaScript and Angular", "Fornece a funcionalidade para clientes atráves de seu navegador web.")
+        Container(servicoAPI, "Serviço de API", "JavaScript e Angular", "Fornece a funcionalidade para clientes atráves de seu navegador web.")
     }
 }
 
 
 
-Rel(client, api, "Usa", "JSON/HTTPS")
-Rel(driver, api, "Usa", "JSON/HTTPS")
 
-Rel(api, database, "Usa", "Conector de Banco de Dados")
+Rel(appMobile, servicoAPI, "Usa", "JSON/HTTPS")
 
-Rel(trips, store, "Envia");
-Rel(drivers, store, "Envia");
-Rel(clients, store, "Envia");
+Rel(api, bigbankdb01, "Usa", "Conector de Banco de Dados")
 
-Rel(routing, trips, "Lê");
-Rel(login, clients, "Lê");
-Rel(profile, clients, "Lê");
+Rel(bancoDadosUsuario, servicoAPI, "Envia");
+Rel(bancoDadosUsuario, appMobile, "Envia");
 
 @enduml
