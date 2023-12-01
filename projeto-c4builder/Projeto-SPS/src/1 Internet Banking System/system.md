@@ -1,14 +1,45 @@
-**Level 2: Container diagram**
+# Sistema de Prestação de Serviços - Visão do Sistema
 
-Once you understand how your system fits in to the overall IT environment, a really useful next step is to zoom-in to the system boundary with a Container diagram. A "container" is something like a server-side web application, single-page application, desktop application, mobile app, database schema, file system, etc. Essentially, a container is a separately runnable/deployable unit (e.g. a separate process space) that executes code or stores data.
+## Componentes
 
-The Container diagram shows the high-level shape of the software architecture and how responsibilities are distributed across it. It also shows the major technology choices and how the containers communicate with one another. It's a simple, high-level technology focussed diagram that is useful for software developers and support/operations staff alike.
+### 1. Módulo de Clientes
 
-**Scope**: A single software system.
+- **Responsabilidades:**
+  - Gerenciar perfis de clientes.
+  - Processar solicitações de serviços.
+  - Manter histórico de transações.
 
-**Primary elements**: Containers within the software system in scope.
-Supporting elements: People and software systems directly connected to the containers.
+### 2. Módulo de Prestadores de Serviços
 
-**Intended audience**: Technical people inside and outside of the software development team; including software architects, developers and operations/support staff.
+- **Responsabilidades:**
+  - Gerenciar perfis de prestadores de serviços.
+  - Aceitar/rejeitar solicitações de serviços.
+  - Manter disponibilidade e histórico de serviços prestados.
 
-**Notes**: This diagram says nothing about deployment scenarios, clustering, replication, failover, etc.
+### 3. Módulo de Agendamento
+
+- **Responsabilidades:**
+  - Facilitar o agendamento de serviços entre clientes e prestadores.
+  - Gerenciar horários disponíveis.
+
+### 4. Módulo de Pagamento
+
+- **Responsabilidades:**
+  - Processar transações financeiras entre clientes e prestadores.
+  - Manter registros de transações.
+
+### 5. Módulo Administrativo
+
+- **Responsabilidades:**
+  - Administrar usuários e permissões.
+  - Monitorar atividades do sistema.
+  - Gerar relatórios.
+
+## Relacionamentos
+
+- O Módulo de Clientes interage com o Módulo de Agendamento e o Módulo de Pagamento.
+- O Módulo de Prestadores de Serviços interage com o Módulo de Agendamento e o Módulo de Pagamento.
+- O Módulo de Agendamento coordena entre clientes e prestadores.
+- O Módulo de Pagamento facilita transações financeiras entre clientes e prestadores.
+- O Módulo Administrativo interage com todos os outros módulos para administração global.
+

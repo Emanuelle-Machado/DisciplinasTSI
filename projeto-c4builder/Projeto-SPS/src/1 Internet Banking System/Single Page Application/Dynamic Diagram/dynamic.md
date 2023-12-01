@@ -1,9 +1,21 @@
-**Dynamic diagram**
+# Sistema de Prestação de Serviços - Visão Dinâmica
 
-A simple dynamic diagram can be useful when you want to show how elements in a static model collaborate at runtime to implement a user story, use case, feature, etc. This dynamic diagram is based upon a UML communication diagram (previously known as a "UML collaboration diagram"). It is similar to a UML sequence diagram although it allows a free-form arrangement of diagram elements with numbered interactions to indicate ordering.
+## Diagrama de Sequência - Solicitação de Serviços
 
-**Scope**: An enterprise, software system or container.
+**Ator Principal:** Cliente
 
-**Primary and supporting elements**: Depends on the diagram scope; enterprise (see System Landscape diagram), software system (see System Context or Container diagrams), container (see Component diagram).
+**Objetivo:** Solicitar um serviço através da aplicação web.
 
-**Intended audience**: Technical and non-technical people, inside and outside of the software development team.
+**Cenário:**
+
+1. **Cliente** acessa a interface da aplicação web.
+2. **Aplicação Web** exibe opções de serviços disponíveis.
+3. **Cliente** seleciona um serviço desejado.
+4. **Aplicação Web** processa a solicitação e envia para o **Servidor de Aplicação**.
+5. **Servidor de Aplicação** valida a solicitação e interage com o **Servidor de Banco de Dados** para obter informações necessárias.
+6. **Servidor de Aplicação** retorna os detalhes do serviço ao **Cliente**.
+7. **Cliente** confirma a solicitação.
+8. **Servidor de Aplicação** realiza ações necessárias para confirmar a solicitação e atualiza o **Servidor de Banco de Dados**.
+9. **Cliente** recebe confirmação da solicitação.
+
+
