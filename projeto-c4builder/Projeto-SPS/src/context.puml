@@ -5,14 +5,14 @@
 LAYOUT_WITH_LEGEND()
 
 Person(pcs, "Pessoa Cliente do sistema", "Um cliente com uma conta no sistema")
-Person(pas, "Pessoa Atendente do sistema", "Um atendente com uma conta no sistema")
+Person(pps, "Pessoa Prestadora do sistema", "Um prestador com uma conta no sistema")
 
 System(sps, "Sistema prestação de serviço", "Permite aos usuários pedir um transporte com um prestador disponível")
 
-System_Ext(email, "Sistema de E-mail", "sistema de envio e recebimento de e-mails")
+System_Ext(pagamentos, "Sistema de pagamento", "sistema de envio e recebimento de pagamentos")
 
 Rel(pcs, sps, "usa")
-Rel(pas, sps, "usa")
-Rel(pas, email, "Envia e-mail", "o atendente pode enviar ou receber emails dos clientes")
+Rel(pps, sps, "usa")
+Rel(pps, pagamentos, "Envia e-mail", "o prestador pode receber pagamentos dos clientes")
 
 @enduml
