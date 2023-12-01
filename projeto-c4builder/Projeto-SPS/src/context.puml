@@ -13,6 +13,7 @@ System_Ext(pagamentos, "Sistema de pagamento", "sistema de envio e recebimento d
 
 Rel(pcs, sps, "usa")
 Rel(pps, sps, "usa")
-Rel(pps, pagamentos, "Envia e-mail", "o prestador pode receber pagamentos dos clientes")
+Rel(pps, pagamentos, "Recebe pagamento", "o prestador pode receber pagamentos dos clientes")
+Rel(pcs, pagamentos, "Envia pagamento", "o cliente pode enviar pagamentos dos prestadores")
 
 @enduml
