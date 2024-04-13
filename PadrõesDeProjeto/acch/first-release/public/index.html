@@ -14,6 +14,7 @@
                 height: 400px;
             }
         </style>
+        <script src="/socket.io/socket.io.js"></script>
     </head>
     <body>
 
@@ -37,11 +38,19 @@
             renderScreen(screen, game, requestAnimationFrame)
 
             //--------------------------------------------------
-            game.addPlayer({playerId: 'player1', playerX: 0, playerY: 0})
-            game.addPlayer({playerId: 'player2', playerX: 7, playerY: 0})
-            game.addPlayer({playerId: 'player3', playerX: 9, playerY: 0})
-            game.addPlayer({fruitId: 'fruit1', fruitX: 3, fruitY: 3})
-            game.addPlayer({fruitId: 'fruit2', fruitX: 3, fruitY: 5})
+            const socket = io()
+
+            socket.on('connect', () => {
+                const playerId = socket.io
+                console.log('Player connected on Client with id: ${playerId}')
+            })
+
+            socket.on('setup', (state) => {
+                console.log('> Receveing "setup" event from server')
+                console.log(state)
+
+                game.state = state
+            })
 
         </script>
     </body>
