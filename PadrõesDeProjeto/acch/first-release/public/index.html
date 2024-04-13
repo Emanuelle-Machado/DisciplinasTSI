@@ -1,57 +1,98 @@
 <html>
-    <head>
 
-        <meta charset="UTF-8">
-        <title>Padrões de projeto - ACCH - jogo multiplayer</title>
+<head>
 
-        <style>
-            #screen {
-                border: 1px solid #ccc;
-                image-rendering: pixelated;
-                image-rendering: crisp-edges;
-                image-rendering: -moz-crisp-edges;
-                width: 400px;
-                height: 400px;
-            }
-        </style>
-        <script src="/socket.io/socket.io.js"></script>
-    </head>
-    <body>
+    <meta charset="UTF-8">
+    <title>Padrões de projeto - ACCH - jogo multiplayer</title>
 
-        <canvas id="screen" width="10" height="10" ></canvas>
+    <style>
+        #screen {
+            border: 1px solid #ccc;
+            image-rendering: pixelated;
+            image-rendering: crisp-edges;
+            image-rendering: -moz-crisp-edges;
+            width: 400px;
+            height: 400px;
+        }
+    </style>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
 
-        <script type="module">
+<body>
 
-            import createGame from './game.js'
-            import createKeyboardListener from './keyboard-listener.js'
-            import renderScreen from './render-screen.js'
+    <canvas id="screen" width="10" height="10"></canvas>
 
-            //--------------------------------------------------
-            const game = createGame()
-            const keyboardListener = createKeyboardListener(document)
+    <script type="module">
 
-            keyboardListener.subscribe(game.movePlayer)
+        import createGame from './game.js'
+        import createKeyboardListener from './keyboard-listener.js'
+        import renderScreen from './render-screen.js'
 
-            //--------------------------------------------------
+        //--------------------------------------------------
+        const game = createGame()
+        const keyboardListener = createKeyboardListener(document)
+
+        keyboardListener.subscribe(game.movePlayer)
+
+        const socket = io()
+
+        //--------------------------------------------------
+        socket.on('connect', () => {
+            const playerId = socket.io
+            console.log('Player connected on Client with id: ${playerId}')
+
             const screen = document.getElementById('screen')
+            renderScreen(screen, game, requestAnimationFrame, playerId)
+        })
 
-            renderScreen(screen, game, requestAnimationFrame)
+        //--------------------------------------------------
+        socket.on('setup', (state) => {
+            const playerId = socket.id
+            game.setState(state)
 
-            //--------------------------------------------------
-            const socket = io()
-
-            socket.on('connect', () => {
-                const playerId = socket.io
-                console.log('Player connected on Client with id: ${playerId}')
+            keyboardListener.registerPlayerId(playerId)
+            keyboardListener.subscribe(game.movePlayer)
+            keyboardListener.subscribe((command) => {
+                socket.emit('move-player', command)
             })
+        })
 
-            socket.on('setup', (state) => {
-                console.log('> Receveing "setup" event from server')
-                console.log(state)
+        //--------------------------------------------------
+        socket.on('add-player', (command) => {
+            console.log('Receiveing ${command.type} -> ${command.playerId}')
+            game.addPlayer(command)
+        })
 
-                game.state = state
-            })
+        //--------------------------------------------------
+        socket.on('remove-player', (command) => {
+            console.log('Receiveing ${command.type} -> ${command.playerId}')
+            game.removePlayer(command)
+        })
 
-        </script>
-    </body>
+        //--------------------------------------------------
+        socket.on('move-player', (command) => {
+
+            console.log('Receiveing ${command.type} -> ${command.playerId}')
+            const playerId = socket.id
+
+            if(playerId !== command.playerId){
+                game.movePlayer(command)
+            }
+        })
+
+        //--------------------------------------------------
+        socket.on('add-fruit', (command) => {
+            console.log('Receiveing ${command.type} -> ${command.fruitId}')
+            game.addFruit(command)
+        })
+
+        //--------------------------------------------------
+        socket.on('remove-fruit', (command) => {
+            console.log('Receiveing ${command.type} -> ${command.fruitId}')
+            game.removeFruit(command)
+        })
+
+    </script>
+</body>
+
 </html>
