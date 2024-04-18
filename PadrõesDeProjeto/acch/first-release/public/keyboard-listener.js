@@ -1,9 +1,8 @@
-import { type } from "os"
-
 export default function createKeyboardListener(document) {
 
     const state = {
-        observers: []
+        observers: [],
+        playerId: null
     }
 
     //==================================================

@@ -19,7 +19,7 @@ export default function renderScreen(screen, game, requestAnimationFrame, curren
     }
 
     //--------------------------------------------------
-    const currentPlayerId = game.state.players[currentPlayerId]
+    const currentPlayer = game.state.players[currentPlayerId]
 
     if(currentPlayer) {
         context.fillStyle = '#F0DB4F',

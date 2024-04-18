@@ -1,5 +1,3 @@
-import { type } from "os"
-
 export default function createGame() {
 
     const state = {
@@ -30,7 +28,7 @@ export default function createGame() {
 
         console.log('keyboardListener -> Notifying ${state.observers.length} observers')
 
-        for (const observerFunction of state.observers) {
+        for (const observerFunction of observers) {
             observerFunction(command)
         }
     }

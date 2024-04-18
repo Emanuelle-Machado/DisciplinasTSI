@@ -38,7 +38,7 @@
 
         //--------------------------------------------------
         socket.on('connect', () => {
-            const playerId = socket.io
+            const playerId = socket.id
             console.log('Player connected on Client with id: ${playerId}')
 
             const screen = document.getElementById('screen')
