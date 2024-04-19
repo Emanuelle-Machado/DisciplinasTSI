@@ -21,11 +21,13 @@ export default function createKeyboardListener(document) {
 
         console.log('keyboardListener -> Notifying ${state.observers.length} observers')
 
+        //-----------------------
         for (const observerFunction of state.observers) {
             observerFunction(command)
         }
     }
 
+     //-----------------------
     document.addEventListener('keydown', handleKeydown)
 
     //==================================================
@@ -33,15 +35,18 @@ export default function createKeyboardListener(document) {
 
         const keyPressed = event.key
 
+        //-----------------------
         const command = {
             type: 'move-player',
             playerId: state.playerId,
             keyPressed
         }
 
+        //-----------------------
         notifyAll(command)
     }
 
+    //==================================================
     return {
         subscribe,
         registerPlayerId

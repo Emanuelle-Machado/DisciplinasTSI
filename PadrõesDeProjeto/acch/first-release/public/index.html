@@ -50,6 +50,7 @@
             const playerId = socket.id
             game.setState(state)
 
+            //-----------------------
             keyboardListener.registerPlayerId(playerId)
             keyboardListener.subscribe(game.movePlayer)
             keyboardListener.subscribe((command) => {
@@ -75,6 +76,7 @@
             console.log('Receiveing ${command.type} -> ${command.playerId}')
             const playerId = socket.id
 
+            //-----------------------
             if(playerId !== command.playerId){
                 game.movePlayer(command)
             }

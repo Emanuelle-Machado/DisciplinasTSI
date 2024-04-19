@@ -28,6 +28,7 @@ export default function createGame() {
 
         console.log('keyboardListener -> Notifying ${state.observers.length} observers')
 
+        //-----------------------
         for (const observerFunction of observers) {
             observerFunction(command)
         }
@@ -45,11 +46,13 @@ export default function createGame() {
         const playerX = 'playerX' in command ? command.playerX : Math.floor(Math.random() * state.screen.width)
         const playerY = 'playerY' in command ? command.playerY : Math.floor(Math.random() * state.screen.height)
 
+        //-----------------------
         state.players[playerId] = {
             x: playerX,
             y: playerY
         }
 
+        //-----------------------
         notifyAll({
             type: 'add-player',
             playerId: playerId,
@@ -65,6 +68,7 @@ export default function createGame() {
         const playerId = command.playerId
         delete state.players[playerId]
 
+        //-----------------------
         notifyAll({
             type: 'remove-player',
             playerId: playerId
@@ -79,11 +83,13 @@ export default function createGame() {
         const fruitY = command ? command.fruitY : Math.floor(Math.random() * state.screen.height)
 
 
+        //-----------------------
         state.fruits[fruitId] = {
             x: fruitX,
             y: fruitY
         }
 
+        //-----------------------
         notifyAll({
             type: 'add-fruit',
             fruitId: fruitId,
@@ -98,6 +104,7 @@ export default function createGame() {
         const fruitId = command.fruitId
         delete state.fruits[fruitId]
 
+        //-----------------------
         notifyAll({
             type: 'remove-fruit',
             fruitId: fruitId
@@ -108,7 +115,7 @@ export default function createGame() {
     function movePlayer(command) {
         notifyAll(command)
         
-        //--------------------------------------------------
+        //-----------------------
         const acceptedMoves = {
             ArrowUp(player) {
                 console.log('game.movePlayer().ArrowUp() -> Moving player Up')
@@ -136,13 +143,13 @@ export default function createGame() {
             }
         }
 
-        //--------------------------------------------------
+        //-----------------------
         const keyPressed = command.keyPressed
         const playerId = command.playerId
         const player = state.players[playerId]
         const moveFunction = acceptedMoves[keyPressed]
 
-        //--------------------------------------------------
+        //-----------------------
         if (player && moveFunction) {
             moveFunction(player)
             checkForFruitCollision(playerId)
@@ -154,10 +161,12 @@ export default function createGame() {
 
         const player = state.players[playerId]
 
+        //-----------------------
         for (const fruitId in state.fruits) {
             const fruit = state.fruits[fruitId]
             console.log('Checking ${playerId} and ${fruitId}')
 
+            //-----------------------
             if (player.x === fruit.x && player.y === fruit.y) {
                 console.log('COLLISION between ${playerId} and ${fruitId}')
                 removeFruit({ fruitId: fruitId })
@@ -165,6 +174,7 @@ export default function createGame() {
         }
     }
 
+    //==================================================
     return {
         addPlayer,
         removePlayer,
